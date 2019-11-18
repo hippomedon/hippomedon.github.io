@@ -143,6 +143,85 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-缓存" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/18/%E7%BC%93%E5%AD%98/">一级缓存和二级缓存</a>
+    </h1>
+  
+
+        
+        <a href="/2019/11/18/%E7%BC%93%E5%AD%98/" class="archive-article-date">
+  	<time datetime="2019-11-18T11:52:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>二级缓存是什么意思</strong></p>
+<p>二级缓存就是一级缓存的缓冲器：一级缓存制造成本很高因此它的容量有限，二级缓存的作用就是存储</p>
+<p>那些CPU处理时需要用到、一级缓存又无法存储的数据。同样道理，三级缓存和内存可以看作是二级缓</p>
+<p>存的缓冲器，它们的容量递增，但单位制造成本却递减。需要注意的是，无论是二级缓存、三级缓存还</p>
+<p>是内存都不能存储处理器操作的原始指令，这些指令只能存储在CPU的一级指令缓存中，而余下的二级</p>
+<p>缓存、三级缓存和内存仅用于存储CPU所需数据。</p>
+<p><strong>一级缓存和二级缓存的区别：</strong></p>
+<p>主要的不同是它们的作用范围不同。</p>
+<p>一级缓存是session级别的。</p>
+<p>也就是只有在同一个session里缓存才起作用，当这个session关闭后这个缓存就不存在了。</p>
+<p>而二级缓存是sessionFactory级别的。</p>
+<p>其缓存对同一个sessionFactory生产出来的session都有效，二级缓存我们通常使用其他的一些开源组<br>件，比如hibernate经常使用的就是ECache，这个缓存在整个应用服务器中都会有效的。</p>
+<p>首先要明白缓存是干什么的，缓存就是要将一些经常使用的数据缓存到内存或者各种储存介质中，当<br>再次使用时可以不用去数据库中查询，减少与数据库的交互，提高性能。</p>
+<p>再说明一级与二级缓存的作用：一级缓存是Session级别的，也就是说在一个事务中才会启作用。比如<br>在一个事务中同时查询同一个对象，则不会两次去数据库中查询。</p>
+<p>而二级缓存是sessionFactory级别的，不同的事务之间是可以共享的，有些权限，当用户首次登陆后<br>便将关联的权限放到二级缓存中，这样每次需要权限时就无需再查询数据库了。</p>
+<p>最后再说明为什么这样设计：一般情况下，我们查询的数据一般是实时的，使用二级缓存肯定不行，<br>使用一级缓存既利用了缓存又不会影响实时。</p>
+<p>使用二级缓存是为了存储一些比较稳定的数据，如权限，只有在用户修改了权限且重新登录时才能生效<br>cpu中的一级缓存和二级缓存和三级缓存。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/11/18/%E7%BC%93%E5%AD%98/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Oracle与MySQL优缺点、使用区别）-MySQL的特点" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
