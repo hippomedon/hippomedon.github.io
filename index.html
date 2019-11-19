@@ -143,6 +143,78 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Untitled" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/19/Untitled/">MySQL优化常用方法</a>
+    </h1>
+  
+
+        
+        <a href="/2019/11/19/Untitled/" class="archive-article-date">
+  	<time datetime="2019-11-19T04:04:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>1.选取最适用的字段属性</strong><br>表中字段的宽度设得尽可能小：char 的上限为 255 字节（固定占用空间），varchar 的上限 65535 字节（实际占用空间），text 的上限为 65535。<br>尽量把字段设置为 NOT NULL，执行查询的时候，数据库不用去比较 NULL 值。</p>
+<p><strong>2.使用连接（JOIN）来代替子查询 (Sub-Queries)</strong><br>连接（JOIN）之所以更有效率一些，是因为 MySQL 不需要在内存中创建临时表来完成这个逻辑上的需要两个步骤的查询工作（联合查询的条件加索引更快）。</p>
+<p><strong>3.使用联合 (UNION) 来代替手动创建的临时表</strong><br>把需要使用临时表的两条或更多的 SELECT 查询合并的一个查询中。<br>SELECT Name, Phone FROM client UNION SELECT Name, BirthDate FROM author UNION SELECT Name, Supplier FROM product;</p>
+<p><strong>4.事务</strong><br>尽管我们可以使用子查询（Sub-Queries）、连接（JOIN）和联合（UNION）来创建各种各样的查询，但不是所有的数据库操作都可以只用一条或少数几条 SQL 语句就可以完成的。更多的时候是需要用到一系列的语句来完成某种工作。<br>作用是：要么语句块中每条语句都操作成功，要么都失败。换句话说，就是可以保持数据库中数据的一致性和完整性。事物以 BEGIN 关键字开始，COMMIT 关键字结束。在这之间的一条 SQL 操作失败，那么，ROLLBACK 命令就可以把数据库恢复到 BEGIN 开始之前的状态。</p>
+<p><strong>5.锁定表</strong><br>尽管事务是维护数据库完整性的一个非常好的方法，但却因为它的独占性，有时会影响数据库的性能，尤其是在很大的应用系统中。由于在事务执行的过程中，数据库将会被锁定，因此其它的用户请求只能暂时等待直到该事务结束。<br>LOCK TABLE inventory WRITE<br>SELECT Quantity FROM inventory<br>WHEREItem=’book’;<br>…<br>UPDATE inventory SET Quantity=11<br>WHEREItem=’book’;<br>UNLOCK TABLES<br>这里，我们用一个 SELECT 语句取出初始数据，通过一些计算，用 UPDATE 语句将新值更新到表中。包含有 WRITE 关键字的 LOCK TABLE 语句可以保证在 UNLOCK TABLES 命令被执行之前，不会有其它的访问来对 inventory 进行插入、更新或者删除的操作。</p>
+<p><strong>6.使用外键</strong><br>锁定表的方法可以维护数据的完整性，但是它却不能保证数据的关联性。这个时候我们就可以使用外键。例如，外键可以保证每一条销售记录都指向某一个存在的客户。在这里，外键可以把 customerinfo 表中的 CustomerID 映射到 salesinfo 表中 CustomerID，任何一条没有合法 CustomerID 的记录都不会被更新或插入到 salesinfo 中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE customerinfo </span><br><span class="line">( </span><br><span class="line">CustomerID INT NOT NULL , </span><br><span class="line">PRIMARY KEY ( CustomerID ) </span><br><span class="line">) TYPE = INNODB; </span><br><span class="line">CREATE TABLE salesinfo </span><br><span class="line">( </span><br><span class="line">SalesID INT NOT NULL, </span><br><span class="line">CustomerID INT NOT NULL, </span><br><span class="line">PRIMARY KEY(CustomerID, SalesID), </span><br><span class="line">FOREIGN KEY (CustomerID) REFERENCES customerinfo </span><br><span class="line">(CustomerID) ON DELETECASCADE </span><br><span class="line">) TYPE = INNODB;</span><br></pre></td></tr></table></figure>
+<p>注意例子中的参数 “ON DELETE CASCADE”。该参数保证当 customerinfo 表中的一条客户记录被删除的时候，salesinfo 表中所有与该客户相关的记录也会被自动删除。如果要在 MySQL 中使用外键，一定要记住在创建表的时候将表的类型定义为事务安全表 InnoDB 类型。该类型不是 MySQL 表的默认类型。定义的方法是在 CREATE TABLE 语句中加上 TYPE=INNODB。</p>
+<p><strong>7.使用索引</strong><br>查询语句当中包含有 MAX (), MIN () 和 ORDERBY 这些命令的时候，性能提高更为明显。<br>索引应建立在那些将用于 JOIN, WHERE 判断和 ORDER BY 排序的字段上。尽量不要对数据库中某个含有大量重复的值的字段建立索引。对于一个 ENUM 类型的字段来说，出现大量重复值是很有可能的情况，例如 customerinfo 中的 “province”.. 字段，在这样的字段上建立索引将不会有什么帮助；相反，还有可能降低数据库的性能。</p>
+<p><strong>8.优化的查询语句</strong><br>SELECT FROM order WHERE YEAR(OrderDate)&lt;2001;<br>SELECT FROM order WHERE OrderDate&lt;”2001-01-01”;<br>SELECT FROM inventory WHERE Amount/7&lt;24;<br>SELECT FROM inventory WHERE Amount&lt;24*7;<br>避免在查询中让 MySQL 进行自动类型转换，因为转换过程也会使索引变得不起作用。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/11/19/Untitled/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-缓存" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -355,86 +427,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/11/14/Spring%E4%B8%ADBasicDataSource/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Untitled" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/14/Untitled/">Spring在web请求中定义编码（org.springframework.web.filter.CharacterEncodingFilter） </a>
-    </h1>
-  
-
-        
-        <a href="/2019/11/14/Untitled/" class="archive-article-date">
-  	<time datetime="2019-11-14T04:51:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <pre><code>&lt;!-- Filter 定义  --&gt;
-&lt;!-- Character Encoding filter --&gt;
-&lt;filter&gt;
-    &lt;filter-name&gt;encodingFilter&lt;/filter-name&gt;
-    &lt;filter-class&gt;org.springframework.web.filter.CharacterEncodingFilter&lt;/filter-class&gt;
-    &lt;init-param&gt;
-        &lt;param-name&gt;encoding&lt;/param-name&gt;
-        &lt;param-value&gt;UTF-8&lt;/param-value&gt;
-    &lt;/init-param&gt;
-    &lt;init-param&gt;
-        &lt;param-name&gt;forceEncoding&lt;/param-name&gt;
-        &lt;param-value&gt;true&lt;/param-value&gt;
-    &lt;/init-param&gt;
-&lt;/filter&gt;
-&lt;filter-mapping&gt;
-    &lt;filter-name&gt;encodingFilter&lt;/filter-name&gt;
-    &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
-&lt;/filter-mapping&gt;</code></pre><p>   CharacterEncodingFilter类具有encoding和forceEncoding两个属性，其中encoding是表示设置request的编码，forceEncoding表示是否同时设置response的编码。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/14/Untitled/">展开全文 >></a>
         </p>
       
 
