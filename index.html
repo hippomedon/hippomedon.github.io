@@ -143,6 +143,145 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-乐观锁与悲观锁" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/24/%E4%B9%90%E8%A7%82%E9%94%81%E4%B8%8E%E6%82%B2%E8%A7%82%E9%94%81/">乐观锁与悲观锁简述</a>
+    </h1>
+  
+
+        
+        <a href="/2019/11/24/%E4%B9%90%E8%A7%82%E9%94%81%E4%B8%8E%E6%82%B2%E8%A7%82%E9%94%81/" class="archive-article-date">
+  	<time datetime="2019-11-24T06:13:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>悲观锁</strong><br>总是假设最坏的情况，每次去拿数据的时候都认为别人会修改，所以每次在拿数据的时候都会上锁，这样别人想拿这个数据就会阻塞直到它拿到锁（共享资源每次只给一个线程使用，其它线程阻塞，用完后再把资源转让给其它线程）。传统的关系型数据库里边就用到了很多这种锁机制，比如行锁，表锁等，读锁，写锁等，都是在做操作之前先上锁。Java中synchronized和ReentrantLock等独占锁就是悲观锁思想的实现。</p>
+<p><strong>乐观锁</strong><br>总是假设最好的情况，每次去拿数据的时候都认为别人不会修改，所以不会上锁，但是在更新的时候会判断一下在此期间别人有没有去更新这个数据，可以使用版本号机制和CAS算法实现。乐观锁适用于多读的应用类型，这样可以提高吞吐量，像数据库提供的类似于write_condition机制，其实都是提供的乐观锁。在Java中java.util.concurrent.atomic包下面的原子变量类就是使用了乐观锁的一种实现方式CAS实现的。</p>
+<p><strong>两种锁的使用场景</strong><br>从上面对两种锁的介绍，我们知道两种锁各有优缺点，不可认为一种好于另一种，像乐观锁适用于写比较少的情况下（多读场景），即冲突真的很少发生的时候，这样可以省去了锁的开销，加大了系统的整个吞吐量。但如果是多写的情况，一般会经常产生冲突，这就会导致上层应用会不断的进行retry，这样反倒是降低了性能，所以一般多写的场景下用悲观锁就比较合适。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/11/24/%E4%B9%90%E8%A7%82%E9%94%81%E4%B8%8E%E6%82%B2%E8%A7%82%E9%94%81/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-mybatis中-和-的区别" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/24/mybatis%E4%B8%AD-%E5%92%8C-%E7%9A%84%E5%8C%BA%E5%88%AB/">mybatis中&#34;#{}&#34;和&#34;${}&#34;的区别</a>
+    </h1>
+  
+
+        
+        <a href="/2019/11/24/mybatis%E4%B8%AD-%E5%92%8C-%E7%9A%84%E5%8C%BA%E5%88%AB/" class="archive-article-date">
+  	<time datetime="2019-11-24T06:07:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>动态 sql 是 mybatis 的主要特性之一，在 mapper 中定义的参数传到 xml 中之后，在查询之前 mybatis 会对其进行动态解析。mybatis 为我们提供了两种支持动态 sql 的语法：#{} 以及 ${} 。</p>
+<p>1、#相当于对数据 加上 双引号，$相当于直接显示数据。</p>
+<p>2、#{} ： 根据参数的类型进行处理，比如传入String类型，则会为参数加上双引号。#{} 传参在进行SQL预编译时，会把参数部分用一个占位符 ? 代替，这样可以防止 SQL注入。</p>
+<p>3、${} ： 将参数取出不做任何处理，直接放入语句中，就是简单的字符串替换，并且该参数会参加SQL的预编译，需要手动过滤参数防止 SQL注入。</p>
+<p>4、因此 mybatis 中优先使用 #{}；当需要动态传入 表名或列名时，再考虑使用 ${} ， ${}比较特殊，他的应用场景是需要动态传入表名或列名时使用，MyBatis排序时使用orderby动态参数时需要注意，用$而不是#。</p>
+<p>例如：<br>1、#对传入的参数视为字符串，也就是它会预编译，select * from user where user_name=${rookie}，比如我传一个rookie，那么传过来就是 select * from user where user_name = ‘rookie’；</p>
+<p>2、$不会将传入的值进行预编译， select * from user where user_name= ${rookie} ,那么传过来的sql就是：select * from user where user_name=rookie;</p>
+<p>3、#优势在于它能很大程度防止sql注入，$ 不行。比如：用户进行一个登录操作，后台sql验证式样的：<br>select * from user where user_name=#{name} and password = #{pwd}，如果前台传来的用户名是“rookie”，密码是 “1 or 2”，用#的方式就不会出现sql注入，换成用$ 方式，sql语句就变成了 select * from user where user_name=rookie and password = 1 or 2。这样的话就形成了sql注入。</p>
+<p><strong>区别</strong><br>#和$的区别：<br>1、<br>#是预编译的方式，<br>$是直接拼接；</p>
+<p>2、<br>#不需要关注数据类型，mybatis实现自动数据类型转换；<br>$不做数据类型转换，需要自行判断数据类型；</p>
+<p>3、<br>#可以防止sql注入；<br>$不能防止sql注入；</p>
+<p>4、<br>如果只有一个参数，默认情况下，<br>#{}中可以写任意的名字；<br>${}中只能用value来接收。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/11/24/mybatis%E4%B8%AD-%E5%92%8C-%E7%9A%84%E5%8C%BA%E5%88%AB/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Untitled" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -150,29 +289,27 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/19/Untitled/">MySQL优化常用方法</a>
+      <a class="article-title" href="/2019/11/24/Untitled/">Java如何实现序列化,有什么意义?</a>
     </h1>
   
 
         
-        <a href="/2019/11/19/Untitled/" class="archive-article-date">
-  	<time datetime="2019-11-19T04:04:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-19</time>
+        <a href="/2019/11/24/Untitled/" class="archive-article-date">
+  	<time datetime="2019-11-24T06:04:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-24</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><strong>1.选取最适用的字段属性</strong><br>表中字段的宽度设得尽可能小：char 的上限为 255 字节（固定占用空间），varchar 的上限 65535 字节（实际占用空间），text 的上限为 65535。<br>尽量把字段设置为 NOT NULL，执行查询的时候，数据库不用去比较 NULL 值。</p>
-<p><strong>2.使用连接（JOIN）来代替子查询 (Sub-Queries)</strong><br>连接（JOIN）之所以更有效率一些，是因为 MySQL 不需要在内存中创建临时表来完成这个逻辑上的需要两个步骤的查询工作（联合查询的条件加索引更快）。</p>
-<p><strong>3.使用联合 (UNION) 来代替手动创建的临时表</strong><br>把需要使用临时表的两条或更多的 SELECT 查询合并的一个查询中。<br>SELECT Name, Phone FROM client UNION SELECT Name, BirthDate FROM author UNION SELECT Name, Supplier FROM product;</p>
-<p><strong>4.事务</strong><br>尽管我们可以使用子查询（Sub-Queries）、连接（JOIN）和联合（UNION）来创建各种各样的查询，但不是所有的数据库操作都可以只用一条或少数几条 SQL 语句就可以完成的。更多的时候是需要用到一系列的语句来完成某种工作。<br>作用是：要么语句块中每条语句都操作成功，要么都失败。换句话说，就是可以保持数据库中数据的一致性和完整性。事物以 BEGIN 关键字开始，COMMIT 关键字结束。在这之间的一条 SQL 操作失败，那么，ROLLBACK 命令就可以把数据库恢复到 BEGIN 开始之前的状态。</p>
-<p><strong>5.锁定表</strong><br>尽管事务是维护数据库完整性的一个非常好的方法，但却因为它的独占性，有时会影响数据库的性能，尤其是在很大的应用系统中。由于在事务执行的过程中，数据库将会被锁定，因此其它的用户请求只能暂时等待直到该事务结束。<br>LOCK TABLE inventory WRITE<br>SELECT Quantity FROM inventory<br>WHEREItem=’book’;<br>…<br>UPDATE inventory SET Quantity=11<br>WHEREItem=’book’;<br>UNLOCK TABLES<br>这里，我们用一个 SELECT 语句取出初始数据，通过一些计算，用 UPDATE 语句将新值更新到表中。包含有 WRITE 关键字的 LOCK TABLE 语句可以保证在 UNLOCK TABLES 命令被执行之前，不会有其它的访问来对 inventory 进行插入、更新或者删除的操作。</p>
-<p><strong>6.使用外键</strong><br>锁定表的方法可以维护数据的完整性，但是它却不能保证数据的关联性。这个时候我们就可以使用外键。例如，外键可以保证每一条销售记录都指向某一个存在的客户。在这里，外键可以把 customerinfo 表中的 CustomerID 映射到 salesinfo 表中 CustomerID，任何一条没有合法 CustomerID 的记录都不会被更新或插入到 salesinfo 中。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE customerinfo </span><br><span class="line">( </span><br><span class="line">CustomerID INT NOT NULL , </span><br><span class="line">PRIMARY KEY ( CustomerID ) </span><br><span class="line">) TYPE = INNODB; </span><br><span class="line">CREATE TABLE salesinfo </span><br><span class="line">( </span><br><span class="line">SalesID INT NOT NULL, </span><br><span class="line">CustomerID INT NOT NULL, </span><br><span class="line">PRIMARY KEY(CustomerID, SalesID), </span><br><span class="line">FOREIGN KEY (CustomerID) REFERENCES customerinfo </span><br><span class="line">(CustomerID) ON DELETECASCADE </span><br><span class="line">) TYPE = INNODB;</span><br></pre></td></tr></table></figure>
-<p>注意例子中的参数 “ON DELETE CASCADE”。该参数保证当 customerinfo 表中的一条客户记录被删除的时候，salesinfo 表中所有与该客户相关的记录也会被自动删除。如果要在 MySQL 中使用外键，一定要记住在创建表的时候将表的类型定义为事务安全表 InnoDB 类型。该类型不是 MySQL 表的默认类型。定义的方法是在 CREATE TABLE 语句中加上 TYPE=INNODB。</p>
-<p><strong>7.使用索引</strong><br>查询语句当中包含有 MAX (), MIN () 和 ORDERBY 这些命令的时候，性能提高更为明显。<br>索引应建立在那些将用于 JOIN, WHERE 判断和 ORDER BY 排序的字段上。尽量不要对数据库中某个含有大量重复的值的字段建立索引。对于一个 ENUM 类型的字段来说，出现大量重复值是很有可能的情况，例如 customerinfo 中的 “province”.. 字段，在这样的字段上建立索引将不会有什么帮助；相反，还有可能降低数据库的性能。</p>
-<p><strong>8.优化的查询语句</strong><br>SELECT FROM order WHERE YEAR(OrderDate)&lt;2001;<br>SELECT FROM order WHERE OrderDate&lt;”2001-01-01”;<br>SELECT FROM inventory WHERE Amount/7&lt;24;<br>SELECT FROM inventory WHERE Amount&lt;24*7;<br>避免在查询中让 MySQL 进行自动类型转换，因为转换过程也会使索引变得不起作用。</p>
+        <p><strong>1.实现序列化:</strong></p>
+<p>1)让类实现Serializable接口,该接口是一个标志性接口,标注该类对象是可被序列</p>
+<p>2)然后使用一个输出流来构造一个对象输出流并通过writeObect(Obejct)方法就可以将实现对象写出</p>
+<p>3)如果需要反序列化,则可以用一个输入流建立对象输入流,然后通过readObeject方法从流中读取对象</p>
+<p><strong>2.作用:</strong></p>
+<p>1)序列化就是一种用来处理对象流的机制,所谓对象流也就是将对象的内容进行流化,可以对流化后的对象进行读写操作,也可以将流化后的对象传输与网络之间;</p>
+<p>2)为了解决对象流读写操作时可能引发的问题(如果不进行序列化,可能会存在数据乱序的问题)</p>
+<p>3）序列化除了能够实现对象的持久化之外，还能够用于对象的深度克隆</p>
 
       
 
@@ -185,7 +322,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/19/Untitled/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/11/24/Untitled/">展开全文 >></a>
         </p>
       
 
@@ -215,43 +352,28 @@
 
 
   
-    <article id="post-缓存" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Java中int和Integer有什么区别？" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/18/%E7%BC%93%E5%AD%98/">一级缓存和二级缓存</a>
+      <a class="article-title" href="/2019/11/24/Java%E4%B8%ADint%E5%92%8CInteger%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F/">Java中int和Integer有什么区别？</a>
     </h1>
   
 
         
-        <a href="/2019/11/18/%E7%BC%93%E5%AD%98/" class="archive-article-date">
-  	<time datetime="2019-11-18T11:52:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-18</time>
+        <a href="/2019/11/24/Java%E4%B8%ADint%E5%92%8CInteger%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F/" class="archive-article-date">
+  	<time datetime="2019-11-24T06:03:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-24</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><strong>二级缓存是什么意思</strong></p>
-<p>二级缓存就是一级缓存的缓冲器：一级缓存制造成本很高因此它的容量有限，二级缓存的作用就是存储</p>
-<p>那些CPU处理时需要用到、一级缓存又无法存储的数据。同样道理，三级缓存和内存可以看作是二级缓</p>
-<p>存的缓冲器，它们的容量递增，但单位制造成本却递减。需要注意的是，无论是二级缓存、三级缓存还</p>
-<p>是内存都不能存储处理器操作的原始指令，这些指令只能存储在CPU的一级指令缓存中，而余下的二级</p>
-<p>缓存、三级缓存和内存仅用于存储CPU所需数据。</p>
-<p><strong>一级缓存和二级缓存的区别：</strong></p>
-<p>主要的不同是它们的作用范围不同。</p>
-<p>一级缓存是session级别的。</p>
-<p>也就是只有在同一个session里缓存才起作用，当这个session关闭后这个缓存就不存在了。</p>
-<p>而二级缓存是sessionFactory级别的。</p>
-<p>其缓存对同一个sessionFactory生产出来的session都有效，二级缓存我们通常使用其他的一些开源组<br>件，比如hibernate经常使用的就是ECache，这个缓存在整个应用服务器中都会有效的。</p>
-<p>首先要明白缓存是干什么的，缓存就是要将一些经常使用的数据缓存到内存或者各种储存介质中，当<br>再次使用时可以不用去数据库中查询，减少与数据库的交互，提高性能。</p>
-<p>再说明一级与二级缓存的作用：一级缓存是Session级别的，也就是说在一个事务中才会启作用。比如<br>在一个事务中同时查询同一个对象，则不会两次去数据库中查询。</p>
-<p>而二级缓存是sessionFactory级别的，不同的事务之间是可以共享的，有些权限，当用户首次登陆后<br>便将关联的权限放到二级缓存中，这样每次需要权限时就无需再查询数据库了。</p>
-<p>最后再说明为什么这样设计：一般情况下，我们查询的数据一般是实时的，使用二级缓存肯定不行，<br>使用一级缓存既利用了缓存又不会影响实时。</p>
-<p>使用二级缓存是为了存储一些比较稳定的数据，如权限，只有在用户修改了权限且重新登录时才能生效<br>cpu中的一级缓存和二级缓存和三级缓存。</p>
+        <p>int是8种基础数据类型的一种，它的字节长度为4，用于表示现实中的正负整型数字。由于它属于基础数据类型，它的创建不会在堆内存中开辟空间，一般是保存在桟内存中的，它可以用算术运算符进行加，减，乘，除等操作。在参数传递的时候，直接传递它的值。</p>
+<p>Integer是int的包装类，它本质是一个类，它的创建会在堆内存中开辟一块新的空间。它的含义也是表示一个整型的数字，但是，算术运算符不能操作它。在参数传递的时候，传递的是它所代表的对象的一个引用。</p>
 
       
 
@@ -264,7 +386,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/18/%E7%BC%93%E5%AD%98/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/11/24/Java%E4%B8%ADint%E5%92%8CInteger%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F/">展开全文 >></a>
         </p>
       
 
@@ -294,269 +416,84 @@
 
 
   
-    <article id="post-Oracle与MySQL优缺点、使用区别）-MySQL的特点" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-get和post的使用场景" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/18/Oracle%E4%B8%8EMySQL%E4%BC%98%E7%BC%BA%E7%82%B9%E3%80%81%E4%BD%BF%E7%94%A8%E5%8C%BA%E5%88%AB%EF%BC%89-MySQL%E7%9A%84%E7%89%B9%E7%82%B9/">Oracle与MySQL优缺点、使用区别 </a>
+      <a class="article-title" href="/2019/11/24/get%E5%92%8Cpost%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/">get和post的使用场景</a>
     </h1>
   
 
         
-        <a href="/2019/11/18/Oracle%E4%B8%8EMySQL%E4%BC%98%E7%BC%BA%E7%82%B9%E3%80%81%E4%BD%BF%E7%94%A8%E5%8C%BA%E5%88%AB%EF%BC%89-MySQL%E7%9A%84%E7%89%B9%E7%82%B9/" class="archive-article-date">
-  	<time datetime="2019-11-18T11:36:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-18</time>
+        <a href="/2019/11/24/get%E5%92%8Cpost%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/" class="archive-article-date">
+  	<time datetime="2019-11-24T05:37:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-24</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><strong>MySQL的特点</strong></p>
-<p>1、性能卓越，服务稳定，很少出现异常宕机；</p>
-<p>2、开放源代码无版本制约，自主性及使用成本低；</p>
-<p>3、历史悠久，社区和用户非常活跃，遇到问题及时寻求帮助；</p>
-<p>4、软件体积小，安装使用简单且易于维护，维护成本低；品牌口碑效应；</p>
-<p>5、支持多种OS，提供多种API接口，支持多种开发语言，对流行的PHP，Java很好的支持</p>
-<p><strong>MySQL的缺点</strong></p>
-<p>1、MySQL最大的缺点是其安全系统，主要是复杂而非标准，另外只有到调用mysqladmin来重读用户权限才会发生改变；</p>
-<p>2、MySQL的另一个主要的途径之一是缺乏标准的RI（Referential  Integrity-RI）机制，RI限制的缺乏（在给定字段域上的一种固定的范围限制）可以通过大量的数据类型来补偿；</p>
-<p>3、MySQL不支持热备份；</p>
-<p><strong>Oracle的特点</strong></p>
-<p>1、兼容性：Oracle产品采用标准SQL，并经过美国u构架标准技术所（NIST）测试，与IBM  SQL/DS、DB2、INGRES、IDMS/R等兼容。</p>
-<p>2、可移植性：Oracle的产品可运行于很宽范围的硬件与操作系统平台上。可以安装在多种 大、中、小型机上，可在多种操作系统下工作。</p>
-<p>3、可联结性：Oracle能与多种通讯网络相连，支持各种协议。</p>
-<p>4、高生产率：Oracle产品提供了多种开发工具，能极大地方使用户进行进一步的开发。</p>
-<p>5、开放性：Oracle良好的兼容性、可移植性、可连接性和高生产率使Oracle   RDBMS具有良好的开放性。</p>
-<p><strong>Oracle的缺点</strong></p>
-<p>1、对硬件要求很高；</p>
-<p>2、价格比较昂贵；</p>
-<p>3、管理维护麻烦一些；</p>
-<p>4、操作比较复杂，需要技术含量高；</p>
-<p><strong>MySQL与Oracle的应用区别</strong></p>
-<p>1、主键的使用：</p>
-<p>MySQL：一般使用自动增长类型，在创建表的时候只要指定表的主键为auto increment,插入记录时就不需要再为主键添加记录了，主键会自动增长；</p>
-<p>Oracle:没有自动增长，主键一般使用序列，插入记录时将序列号的下一值付给该字段即可，只是ORM框架只是需要native主键生成策略即可。</p>
-<p>2、长字符串的处理</p>
-<p>长字符串的处理ORACLE也有它特殊的地方。INSERT和UPDATE时最大可操作的字符串长度小于等于4000个单字符，</p>
-<p>如果要插入更长的字符串，请考虑字段用CLOB类型，方法借用ORACLE里自带的DBMS_LOB程序包。插入修改记录前一定要做进行非空和长度判断，不能为空的字段值和超出长度值都应该提出警告，返回上次操作。</p>
-<p>3、模糊查询的比较</p>
-<p>MySQL:用字段名like%’字符串%’</p>
-<p>Oracle：也可以用字段名like%’字符串%’但这种方法不能使用索引，速度不快，用字符串比较函数</p>
-<p>isnert(字段名，‘字符串’)&gt;0会得到更精确的查找结果</p>
-<p>4、空字符串的比较：</p>
-<p>MySQL的非空字段也有空的内容，Oracle里定义了非空字段就不容许有空的内容。按MySQL的not null来定义Oracle表结构。</p>
-<p>导数据的时候就会产生错误。因此导数据时对空字符进行判断，如果为Null或空字符，需要把它改成一个空格的字符串。</p>
-<p>5、单引号的处理</p>
-<p>MySQL里可以用双引号包起字符串，Oracle里只可以用单引号包起字符串，在插入和修改字符串前必须做单引的替换；</p>
-<p>把所有出现的一个单引号替换成两个单引号</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/18/Oracle%E4%B8%8EMySQL%E4%BC%98%E7%BC%BA%E7%82%B9%E3%80%81%E4%BD%BF%E7%94%A8%E5%8C%BA%E5%88%AB%EF%BC%89-MySQL%E7%9A%84%E7%89%B9%E7%82%B9/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Spring中BasicDataSource" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/14/Spring%E4%B8%ADBasicDataSource/">Spring中BasicDataSource相关重要属性</a>
-    </h1>
-  
-
-        
-        <a href="/2019/11/14/Spring%E4%B8%ADBasicDataSource/" class="archive-article-date">
-  	<time datetime="2019-11-14T05:57:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;dataSource&quot; class=&quot;org.apache.commons.dbcp.BasicDataSource&quot;&gt;</span><br><span class="line">	&lt;property name=&quot;driverClassName&quot; value=&quot;$&#123;jabc.driver&#125;&quot;&gt;&lt;/property&gt;</span><br><span class="line">	&lt;property name=&quot;url&quot; value=&quot;$&#123;jabc.url&#125;&quot;&gt;&lt;/property&gt;</span><br><span class="line">	&lt;property name=&quot;username&quot; value=&quot;$&#123;jabc.username&#125;&quot;&gt;&lt;/property&gt;</span><br><span class="line">	&lt;property name=&quot;password&quot; value=&quot;$&#123;jabc.password&#125;&quot;&gt;&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">	&lt;!-- 连接池初始化多少个连接 --&gt;</span><br><span class="line">	&lt;property name=&quot;initialSize&quot; value=&quot;100&quot;&gt;&lt;/property&gt;</span><br><span class="line">	&lt;!-- 最大允许并发数 --&gt;</span><br><span class="line">	&lt;property name=&quot;maxActive&quot; value=&quot;20&quot;&gt;&lt;/property&gt;</span><br><span class="line">	&lt;!-- 最大允许空闲连接 --&gt;</span><br><span class="line">	&lt;property name=&quot;maxIdle&quot; value=&quot;20&quot;&gt;&lt;/property&gt;</span><br><span class="line">	&lt;!-- 最小允许空闲连接 --&gt;</span><br><span class="line">	&lt;property name=&quot;minIdle&quot; value=&quot;15&quot;&gt;&lt;/property&gt;</span><br><span class="line">	&lt;!-- 最大允许等待时间 --&gt;</span><br><span class="line">	&lt;property name=&quot;maxWait&quot; value=&quot;60000&quot;&gt;&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">	&lt;!-- 是否开启SQL心跳 --&gt;</span><br><span class="line">	&lt;property name=&quot;testWhileIdle&quot; value=&quot;true&quot;&gt;&lt;/property&gt;</span><br><span class="line">	&lt;!-- 心跳间隔时间 --&gt;</span><br><span class="line">	&lt;property name=&quot;timeBetweenEvictionRunsMillis&quot; value=&quot;60000&quot;&gt;&lt;/property&gt;</span><br><span class="line">	&lt;!-- 检测SQL语法 --&gt;</span><br><span class="line">	&lt;property name=&quot;validationQuery&quot; value=&quot;select 1&quot;&gt;&lt;/property&gt;</span><br><span class="line">	&lt;!-- 每次从连接池中获取连接的时候是否需要验证有效(即检测SQL语法) --&gt;</span><br><span class="line">	&lt;property name=&quot;testOnBorrow&quot; value=&quot;false&quot;&gt;&lt;/property&gt;</span><br><span class="line">	&lt;!-- 每次归还连接到连接池的时候是否需要验证有效(即检测SQL语法) --&gt;</span><br><span class="line">	&lt;property name=&quot;testOnReturn&quot; value=&quot;false&quot;&gt;&lt;/property&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/14/Spring%E4%B8%ADBasicDataSource/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Mybitas一对多查询中list只有一条数据（size-1）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/07/Mybitas%E4%B8%80%E5%AF%B9%E5%A4%9A%E6%9F%A5%E8%AF%A2%E4%B8%ADlist%E5%8F%AA%E6%9C%89%E4%B8%80%E6%9D%A1%E6%95%B0%E6%8D%AE%EF%BC%88size-1%EF%BC%89/">Mybitas一对多查询中list只有一条数据（size=1）</a>
-    </h1>
-  
-
-        
-        <a href="/2019/11/07/Mybitas%E4%B8%80%E5%AF%B9%E5%A4%9A%E6%9F%A5%E8%AF%A2%E4%B8%ADlist%E5%8F%AA%E6%9C%89%E4%B8%80%E6%9D%A1%E6%95%B0%E6%8D%AE%EF%BC%88size-1%EF%BC%89/" class="archive-article-date">
-  	<time datetime="2019-11-07T02:28:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>问题描述:定义好resultMap之后，查询结果中的list，其size都是1。</p>
-<p>原因:<br>1.两张链表的主键id同名导致<br>2.主表未查询主键id。</p>
-<p>解决:<br>1.更改两表主键id致不同名。<br>2.sql语句中查询出主键id。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/07/Mybitas%E4%B8%80%E5%AF%B9%E5%A4%9A%E6%9F%A5%E8%AF%A2%E4%B8%ADlist%E5%8F%AA%E6%9C%89%E4%B8%80%E6%9D%A1%E6%95%B0%E6%8D%AE%EF%BC%88size-1%EF%BC%89/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Markdown常用语法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/31/Markdown%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95/">Markdown常用语法</a>
-    </h1>
-  
-
-        
-        <a href="/2019/10/31/Markdown%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95/" class="archive-article-date">
-  	<time datetime="2019-10-31T02:35:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-31</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ul>
-<li>标题：利用#符号可以设定标题，1个表示一级标题，2个表示二级标题，如此类推；</li>
-<li>引用：利用&gt;可以创建引用块；</li>
-<li>代码：利用左上角<strong>`</strong>将待显示内容包起来即可；</li>
-<li>代码块：利用3个<strong>`</strong>描述即可创建代码块；</li>
-<li>斜体：利用ctrl+I即可实现斜体；</li>
-<li>加粗：利用ctrl+B即可实现粗体；</li>
-<li>线状：水平分割线可以用—或者***实现，下划线可以用ctrl+U实现，删除线可利用~~包裹实现；</li>
-<li>列表：无序列表用星号(*)、减号(-)和加号(+)，有序列表用数字加上(.)。</li>
-<li>使用图片</li>
+        <p>GET和POST两种方法都是将数据送到服务器。HTTP标准包含这两种方法是为了达到不同的目的。</p>
+<p>POST用于创建资源，资源的内容会被编入HTTP请示的内容中。例如，处理订货表单、在数据库中加入新数据行等。</p>
+<p>当请求无副作用时（如进行搜索），便可使用GET方法；当请求有副作用时（如添加数据行），则用POST方法。一个比较实际的问题是：GET方法可能会产生很长的URL，或许会超过某些浏览器与服务器对URL长度的限制。</p>
+<p>若符合下列任一情况，则用POST方法：</p>
+<ul>
+<li>请求的结果有持续性的副作用，例如，数据库内添加新的数据行。</li>
+<li>若使用GET方法，则表单上收集的数据可能让URL过长。</li>
+<li>要传送的数据不是采用7位的ASCII编码。</li>
 </ul>
-<p>1.简单使用</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 注：使用时去掉括号“()”前面的空格</span><br><span class="line">![alt 属性文本]  (图片地址)</span><br><span class="line">![alt 属性文本]  (图片地址 &quot;可选标题&quot;)</span><br></pre></td></tr></table></figure>
-<p>2.使用img标签(可自定义宽高)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&quot;图片链接&quot; width=&quot;&quot; height=&quot;&quot;&gt;</span><br></pre></td></tr></table></figure>
-<p>转载<a href="https://www.jianshu.com/p/a3786cc10a99" target="_blank" rel="noopener">https://www.jianshu.com/p/a3786cc10a99</a></p>
+<p>若符合下列任一情况，则用GET方法：</p>
+<ul>
+<li>请求是为了查找资源，HTML表单数据仅用来帮助搜索。</li>
+<li>请求结果无持续性的副作用。</li>
+<li>收集的数据及HTML表单内的输入字段名称的总长不超过1024个字符。</li>
+</ul>
+<p><strong>HTTP 定义了与服务器交互的不同方法，最常用的有4种，Get、Post、Put、Delete,如果我换一下顺序就好记了，Put（增）,Delete（删），Post（改）,Get（查），即增删改查，下面简单叙述一下：<br>1）Get， 它用于获取信息，注意，他只是获取、查询数据，也就是说它不会修改服务器上的数据，从这点来讲，它是数据安全的，而稍后会提到的Post它是可以修改数据的，所以这也是两者差别之一了。</strong></p>
+<p>2） Post，它是可以向服务器发送修改请求，从而修改服务器的，比方说，我们要在论坛上回贴、在博客上评论，这就要用到Post了，当然它也是可以仅仅获取数据的。</p>
+<p>3）Delete 删除数据。可以通过Get/Post来实现。用的不多，暂不多写，以后扩充。</p>
+<p>4）Put，增加、放置数据，可以通过Get/Post来实现。用的不多，暂不多写，以后扩充。</p>
+<p><strong>简述一下Get和Post区别：</strong></p>
+<p>1） GET请求的数据是放在HTTP包头中的，也就是URL之后，通常是像下面这样定义格式的，（而Post是把提交的数据放在HTTP正文中的）。</p>
+<p>login.action?name=hyddd&amp;password=idontknow&amp;verify=%E4%BD%E5%A5%BD</p>
+<p>a，以 ？ 来分隔URL和数据； </p>
+<p>b，以&amp; 来分隔参数；</p>
+<p>c，如果数据是英文或数字，原样发送；</p>
+<p>d，如果数据是中文或其它字符，则进行BASE64编码。  </p>
+<p>2）GET提交的数据比较少，最多1024B，因为GET数据是附在URL之后的，而URL则会受到不同环境的限制的，比如说IE对其限制为2K+35，而POST可以传送更多的数据（理论上是没有限制的，但一般也会受不同的环境，如浏览器、操作系统、服务器处理能力等限制，IIS4可支持80KB，IIS5可支持100KB）。</p>
+<p>3）Post的安全性要比Get高，因为Get时，参数数据是明文传输的，而且使用GET的话，还可能造成Cross-site request forgery攻击。而POST数据则可以加密的，但GET的速度可能会快些。</p>
+<p>所以综上几点，总结成下表：</p>
+<table>
+<thead>
+<tr>
+<th align="center">操作方式</th>
+<th align="center">数据位置</th>
+<th align="center">明文密文</th>
+<th align="center">数据安全</th>
+<th align="center">长度限制</th>
+<th align="center">应用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">GET</td>
+<td align="center">HTTP</td>
+<td align="center">包头明文</td>
+<td align="center">不安全</td>
+<td align="center">长度较小</td>
+<td align="center">查询数据</td>
+</tr>
+<tr>
+<td align="center">POST</td>
+<td align="center">HTTP正文</td>
+<td align="center">可明可密</td>
+<td align="center">安全</td>
+<td align="center">支持较大数据传输</td>
+<td align="center">修改数据</td>
+</tr>
+</tbody></table>
+<p>总的来说，get是用来查询数据，post是用来修改数据。比方说，我们要在论坛上回贴、在博客上评论，这就要用到Post了，当然它也是可以仅仅获取数据的。</p>
 
       
 
@@ -569,7 +506,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/31/Markdown%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/11/24/get%E5%92%8Cpost%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/">展开全文 >></a>
         </p>
       
 
@@ -599,31 +536,34 @@
 
 
   
-    <article id="post-struts2启动报错-Class-com-opensymphony-xwork2-spring-SpringObjectFactory-File-SpringObjectFactory-java-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-请求转发和重定向，Forword与Redirect的区别是什么" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/31/struts2%E5%90%AF%E5%8A%A8%E6%8A%A5%E9%94%99-Class-com-opensymphony-xwork2-spring-SpringObjectFactory-File-SpringObjectFactory-java-1/">struts2启动报错-Class-com-opensymphony-xwork2-spring-SpringObjectFactory-File-SpringObjectFactory-java-1</a>
+      <a class="article-title" href="/2019/11/24/%E8%AF%B7%E6%B1%82%E8%BD%AC%E5%8F%91%E5%92%8C%E9%87%8D%E5%AE%9A%E5%90%91%EF%BC%8CForword%E4%B8%8ERedirect%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88/">请求转发和重定向，Forword与Redirect的区别是什么</a>
     </h1>
   
 
         
-        <a href="/2019/10/31/struts2%E5%90%AF%E5%8A%A8%E6%8A%A5%E9%94%99-Class-com-opensymphony-xwork2-spring-SpringObjectFactory-File-SpringObjectFactory-java-1/" class="archive-article-date">
-  	<time datetime="2019-10-31T02:04:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-31</time>
+        <a href="/2019/11/24/%E8%AF%B7%E6%B1%82%E8%BD%AC%E5%8F%91%E5%92%8C%E9%87%8D%E5%AE%9A%E5%90%91%EF%BC%8CForword%E4%B8%8ERedirect%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88/" class="archive-article-date">
+  	<time datetime="2019-11-24T05:35:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-24</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>严重: Exception starting filter struts2</p>
-<p>Class: com.opensymphony.xwork2.spring.SpringObjectFactory<br>File: SpringObjectFactory.java<br>Method: getClassInstance<br>Line: 209 - com/opensymphony/xwork2/spring/SpringObjectFactory.java:209:-1<br>Caused by: java.lang.NullPointerException at com.opensymphony.xwork2.spring.SpringObjectFactory.getClassInstance(SpringObjectFactory.java:209)</p>
-<p>原因两个：<br>1.lib中多导入包的大原因：去掉struts2-spring-plugin-2.1.8包即可，因为没有用到spring。<br>2.还有的原因是用spring了，却没加监听器，在web.xml里面加上</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;context-param&gt;</span><br><span class="line">      &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;</span><br><span class="line">      &lt;param-value&gt;classpath:applicationContext*.xml&lt;/param-value&gt;</span><br><span class="line">&lt;/context-param&gt;</span><br><span class="line">&lt;listener&gt;</span><br><span class="line">    &lt;listener-class&gt;org.springframework.web.context.ContextLoaderListener&lt;/listener-class&gt;</span><br><span class="line">&lt;/listener&gt;</span><br></pre></td></tr></table></figure>
-<p>转载<a href="https://blog.csdn.net/u010268227/article/details/50387101" target="_blank" rel="noopener">https://blog.csdn.net/u010268227/article/details/50387101</a></p>
+        <p>先说一下这两个的概念：</p>
+<p>转发过程：客户浏 览器发送http请求—-》web服务器接受此请求–》调用内部的一个方法在容器内部完成请求处理和转发动作—-》将目标资源发送给客户;在这 里，转发的路径必须是同一个web容器下的url，其不能转向到其他的web路径上去，中间传递的是自己的容器内的request。在客户浏览器路径栏显 示的仍然是其第一次访问的路径，也就是说客户是感觉不到服务器做了转发的。转发行为是浏览器只做了一次访问请求。</p>
+<p>重定向过程：其实是两次request,第一次，客户端request A,服务器响应，并response回来，告诉浏览器，你应该去B。这个时候IE可以看到地址变了，而且历史的回退按钮也亮了。重定向可以访问自己web应用以外的资源。在重定向的过程中，传输的信息会被丢失。</p>
+<p>以下是区别：</p>
+<p>1、从数据共享上<br>     Forword是一个请求的延续，可以共享request的数据<br>     Redirect开启一个新的请求，不可以共享request的数据</p>
+<p>2、从地址栏<br>     Forword转发地址栏不发生变化<br>     Redirect转发地址栏发生变化</p>
+<p>3、从运用地方来说<br>    forward:一般用于用户登陆的时候,根据角色转发到相应的模块.<br>    redirect:一般用于用户注销登陆时返回主页面和跳转到其它的网站等</p>
+<p>4、 从效率来说<br>    forward:高.<br>    redirect:低.</p>
 
       
 
@@ -636,7 +576,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/31/struts2%E5%90%AF%E5%8A%A8%E6%8A%A5%E9%94%99-Class-com-opensymphony-xwork2-spring-SpringObjectFactory-File-SpringObjectFactory-java-1/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/11/24/%E8%AF%B7%E6%B1%82%E8%BD%AC%E5%8F%91%E5%92%8C%E9%87%8D%E5%AE%9A%E5%90%91%EF%BC%8CForword%E4%B8%8ERedirect%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88/">展开全文 >></a>
         </p>
       
 
@@ -666,6 +606,306 @@
 
 
   
+    <article id="post-HashMap-、-Hashtable-、-treeMap的用处以及他们之间的区别" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/24/HashMap-%E3%80%81-Hashtable-%E3%80%81-treeMap%E7%9A%84%E7%94%A8%E5%A4%84%E4%BB%A5%E5%8F%8A%E4%BB%96%E4%BB%AC%E4%B9%8B%E9%97%B4%E7%9A%84%E5%8C%BA%E5%88%AB/">HashMap 、 Hashtable 、 treeMap的用处以及他们之间的区别</a>
+    </h1>
+  
+
+        
+        <a href="/2019/11/24/HashMap-%E3%80%81-Hashtable-%E3%80%81-treeMap%E7%9A%84%E7%94%A8%E5%A4%84%E4%BB%A5%E5%8F%8A%E4%BB%96%E4%BB%AC%E4%B9%8B%E9%97%B4%E7%9A%84%E5%8C%BA%E5%88%AB/" class="archive-article-date">
+  	<time datetime="2019-11-24T05:33:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>1.HashMap的用法</strong></p>
+<p>HashMap实现了Map接口，继承AbstractMap，它是基于哈希表的 Map 接口的实现(保证键的唯一性)，</p>
+<p>以key-value的形式存在</p>
+<p>HashMap是引用数据类型<br>通过 new 关键字在 Heap 堆中申请空间<br>保存其中元素的空间，按照hash码，预设好一个个的空间<br>这个空间就是 Hash Bucket(哈希桶)<br>每个桶有自己的Hash编号<br>一开始有少量的 Hash Bucket，<br>当程序试图将一个 key-value(Entry) 放入 HashMap 中时，<br>程序首先根据该 key 的 hashCode() 返回值决定该 Entry 的Bucket位置，<br>如果该Bucket为空，直接存放入该Bucket;</p>
+<p>如果该Bucket不为空，使用 equals 比较两个Entry 的 Key；<br>    if(true){新 value 将覆盖 Entry 原 value，key 不变}<br>    if(false){新 Entry 将与 Bucket中原 Entry 形成 Entry 链，<br>        而且新 Entry 位于 Entry 链的头部}</p>
+<p>Map集合的遍历：  </p>
+<p>Map集合的遍历：<br>      1、通过内部类Entry进行遍历<br>      2、通过迭代器进行遍历，先获得Entry的Set集合<br>      3、通过keySet方法获得键的Set集合，通过遍历键取值<br>      4、通过map.values()获得所有值，但是不能获得键</p>
+<p><strong>2.Hashtable的用法</strong></p>
+<p>Hashtable：是Map接口的另外一个实现类，和HashMap用法类似，亦有区别</p>
+<p>Hashtable出现于JDK1.0，HashTable基于Dictionary类<br>HashMap可以允许存在一个为null的key和任意个为null的value，但是HashTable中的key和value都不允许为null</p>
+<p>Hashtable的方法是同步的，而HashMap的方法不是同步的。</p>
+<p>有人建议，涉及多线程使用时候，就使用Hashtable,没有涉及时候就用HashMap.但是在Collections中有一个静态方法</p>
+<p>SynchronizedMap(),该方法创建了一个线程安全的Map对象，并且作为一个封装对象返回。所以通过Collections类中的</p>
+<p>SynchronizedMap()的方法，我们是可以同步访问潜在的HashMap的。</p>
+<p><strong>3.treeMap用法</strong></p>
+<p>TreeMap：基于红黑树（Red-Black tree）的 NavigableMap实现。该映射根据其键的自然顺序进行排序，</p>
+<p>或者根据创建映射时提供的 Comparator进行排序，具体取决于使用的构造方法。</p>
+<p>TreeMap 是一个有序的key-value集合，它是通过红黑树实现的<br>TreeMap 继承于AbstractMap，所以它是一个Map，即一个key-value集合<br>TreeMap 实现了NavigableMap接口，意味着它支持一系列的导航方法，比如返回有序的key集合<br>TreeMap 实现了Cloneable接口，意味着它能被克隆</p>
+<p>TreeMap 实现了Java.io.Serializable接口，意味着它支持序列化</p>
+<p>构造方法：</p>
+<p>TreeMap支持排序：</p>
+<p>1、TreeMap默认按键的自然顺序升序进行排序</p>
+<p>2、TreeMap按降序排列</p>
+<p>注意：在进行降序排序时，要在构造集合时候传递一个比较器</p>
+<p><strong>HashMap  Hashtable  treeMap的原理以及区别</strong></p>
+<p>1.这三个都对Map接口进行了实现</p>
+<p>2.HashMap是不安全的线程，他允许Key值出现一次null   Value值出现无数次的Null</p>
+<p>3.Hashtable是安全的线程，他不仅实现了Map接口也实现了Dictionary接口，他的key值与Value值都不允许出现Null</p>
+<p>4.treeMap是可以进行排序的，默认按照键的自然顺序进行升序排序，若要进行降序排序则需要在构造集合时候传递一个比较器</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/11/24/HashMap-%E3%80%81-Hashtable-%E3%80%81-treeMap%E7%9A%84%E7%94%A8%E5%A4%84%E4%BB%A5%E5%8F%8A%E4%BB%96%E4%BB%AC%E4%B9%8B%E9%97%B4%E7%9A%84%E5%8C%BA%E5%88%AB/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-JDBC、Hibernate、Mybatis之间的区别" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/24/JDBC%E3%80%81Hibernate%E3%80%81Mybatis%E4%B9%8B%E9%97%B4%E7%9A%84%E5%8C%BA%E5%88%AB/">JDBC、Hibernate、Mybatis之间的区别</a>
+    </h1>
+  
+
+        
+        <a href="/2019/11/24/JDBC%E3%80%81Hibernate%E3%80%81Mybatis%E4%B9%8B%E9%97%B4%E7%9A%84%E5%8C%BA%E5%88%AB/" class="archive-article-date">
+  	<time datetime="2019-11-24T05:27:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>JDBC</strong><br>JDBC执行的操作</p>
+<p>1、注册驱动（forClass）<br>2、编写sql<br>3、预编译（通过Connection得到Statement）<br>4、设置参数（往Statement中添加参数）<br>5、执行sql（通过Statement执行sql）<br>6、封装结果（通过ResultSet得到结果）<br>JDBC的优点：<br>很清楚明白的看出数据库所执行的操作</p>
+<p>JDBC的缺点：<br>编写工作量巨大<br>灵活性差<br>需要及时处理异常并正确关闭数据源</p>
+<p><strong>Hibernate</strong><br>执行过程</p>
+<p>1、读取配置文件完成ORM的映射关系<br>2、获取session进行增删改查的操作</p>
+<p>Hibernate的优点<br>维护方便，数据库连接和POJO类的映射都写在xml文档中<br>操作方便，只需获取session就可以对数据库进行操作，关闭时也只需关闭session</p>
+<p>Hibernate的缺点<br>全映射会造成性能比较差<br>sql语句由于是hibernate生成而造成了sql的灵活性较差，不方便定制高效sql<br>自带的HQL语句性能较低</p>
+<p><strong>Mybatis</strong><br>Mybatis优点<br>半自动的执行方式，除sql外操作由框架完成，方便快捷<br>手工定制sql，实现sql与java代码分离，灵活性高，方便维护<br>只需要sql进行操作，不需要学习额外的内容<br>轻量级的框架，执行速度快</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/11/24/JDBC%E3%80%81Hibernate%E3%80%81Mybatis%E4%B9%8B%E9%97%B4%E7%9A%84%E5%8C%BA%E5%88%AB/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-SpringMVC与Struts2的主要区别" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/24/SpringMVC%E4%B8%8EStruts2%E7%9A%84%E4%B8%BB%E8%A6%81%E5%8C%BA%E5%88%AB/">SpringMVC与Struts2的主要区别</a>
+    </h1>
+  
+
+        
+        <a href="/2019/11/24/SpringMVC%E4%B8%8EStruts2%E7%9A%84%E4%B8%BB%E8%A6%81%E5%8C%BA%E5%88%AB/" class="archive-article-date">
+  	<time datetime="2019-11-24T05:25:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>区别1：</p>
+<p>Struts2 的核心是基于一个Filter即StrutsPreparedAndExcuteFilter<br>SpringMvc的核心是基于一个Servlet即DispatcherServlet(前端控制器)</p>
+<p>区别2：</p>
+<p>Struts2是基于类开发的，传递的参数是通过类的属性传递(属性驱动和模型驱动),所以只能设计成多例prototype</p>
+<p>SpringMvc是基于类中的方法开发的，也就是一个url对应一个方法，传递参数是传到方法的形参上面，所以既可以是单例模式也可以是多例模式singiton</p>
+<p>区别3：</p>
+<p>Struts2采用的是值栈存储请求以及响应数据，OGNL存取数据</p>
+<p>SpringMvc采用request来解析请求内容，然后由其内部的getParameter给方法中形参赋值，再把后台处理过的数据通过ModelAndView对象存储，Model存储数据，View存储返回的页面，再把对象通过request传输到页面去。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/11/24/SpringMVC%E4%B8%8EStruts2%E7%9A%84%E4%B8%BB%E8%A6%81%E5%8C%BA%E5%88%AB/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-MVC的工作原理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/24/MVC%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/">MVC的工作原理</a>
+    </h1>
+  
+
+        
+        <a href="/2019/11/24/MVC%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" class="archive-article-date">
+  	<time datetime="2019-11-24T05:25:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>先解释各个含义：<br>M 代表 Model，即模型，用于封装与业务逻辑有关的代码和数据。例如订单模型、商品模型分别封装订单和商品的数据和业务逻辑。<br>V 代表 View，即视图，用于呈现内容给用户（也就是将程序运行的结果返回给浏览器显示）。例如商品列表页面、后台登录页面。<br>C 代表 Controller，即控制器，用于接收用户输入（通过浏览器发起的请求），然后调用模型（Model）对输入数据进行处理并获得处理结果。最后将结果传递到视图（View），从而让用户能够看到自己操作的结果。例如用户点击删除文章按钮后，控制器调用操作文章的模型，删除掉指定文章，最后通过视图显示成功删除文章的提示信息。</p>
+<p>MVC 模式最大的作用就是分离逻辑和表现。一个业务逻辑在模型中实现，而处理结果在视图中呈现。控制器则充当中间人，根据用户请求调用模型，然后把处理结果传递给视图。</p>
+<p>理解：<br>一句话，C接收用户请求发与M，M处理后返回给V结果（一般来讲还要再通过一次C），<br>用户只能看见V</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/11/24/MVC%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+    </nav>
   
 
 
