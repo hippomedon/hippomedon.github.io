@@ -6,16 +6,16 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Java中int和Integer有什么区别？ | hippomedon</title>
+  <title>mysql设置索引 | hippomedon</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="int是8种基础数据类型的一种，它的字节长度为4，用于表示现实中的正负整型数字。由于它属于基础数据类型，它的创建不会在堆内存中开辟空间，一般是保存在桟内存中的，它可以用算术运算符进行加，减，乘，除等操作。在参数传递的时候，直接传递它的值。 Integer是int的包装类，它本质是一个类，它的创建会在堆内存中开辟一块新的空间。它的含义也是表示一个整型的数字，但是，算术运算符不能操作它。在参数传递的时">
+  <meta name="description" content="1.添加PRIMARY KEY（主键索引）  语法：ALTER TABLE `表名` ADD PRIMARY KEY ( `列名称` ) mysql&amp;gt;ALTER TABLE `table_name` ADD PRIMARY KEY ( `column` ) 2.添加UNIQUE(唯一索引) 语法：ALTER TABLE `表名` ADD UNIQUE ( `列名称`) mysql&amp;gt;AL">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java中int和Integer有什么区别？">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;24&#x2F;Java%E4%B8%ADint%E5%92%8CInteger%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F&#x2F;index.html">
+<meta property="og:title" content="mysql设置索引">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;25&#x2F;Untitled&#x2F;index.html">
 <meta property="og:site_name" content="hippomedon">
-<meta property="og:description" content="int是8种基础数据类型的一种，它的字节长度为4，用于表示现实中的正负整型数字。由于它属于基础数据类型，它的创建不会在堆内存中开辟空间，一般是保存在桟内存中的，它可以用算术运算符进行加，减，乘，除等操作。在参数传递的时候，直接传递它的值。 Integer是int的包装类，它本质是一个类，它的创建会在堆内存中开辟一块新的空间。它的含义也是表示一个整型的数字，但是，算术运算符不能操作它。在参数传递的时">
+<meta property="og:description" content="1.添加PRIMARY KEY（主键索引）  语法：ALTER TABLE `表名` ADD PRIMARY KEY ( `列名称` ) mysql&amp;gt;ALTER TABLE `table_name` ADD PRIMARY KEY ( `column` ) 2.添加UNIQUE(唯一索引) 语法：ALTER TABLE `表名` ADD UNIQUE ( `列名称`) mysql&amp;gt;AL">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-11-24T06:03:31.067Z">
+<meta property="og:updated_time" content="2019-11-25T06:39:02.058Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="hippomedon" type="application/atom+xml">
@@ -144,28 +144,44 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Java中int和Integer有什么区别？" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Untitled" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Java中int和Integer有什么区别？
+      mysql设置索引
     </h1>
   
 
         
-        <a href="/2019/11/24/Java%E4%B8%ADint%E5%92%8CInteger%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F/" class="archive-article-date">
-  	<time datetime="2019-11-24T06:03:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-24</time>
+        <a href="/2019/11/25/Untitled/" class="archive-article-date">
+  	<time datetime="2019-11-25T06:34:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-25</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>int是8种基础数据类型的一种，它的字节长度为4，用于表示现实中的正负整型数字。由于它属于基础数据类型，它的创建不会在堆内存中开辟空间，一般是保存在桟内存中的，它可以用算术运算符进行加，减，乘，除等操作。在参数传递的时候，直接传递它的值。</p>
-<p>Integer是int的包装类，它本质是一个类，它的创建会在堆内存中开辟一块新的空间。它的含义也是表示一个整型的数字，但是，算术运算符不能操作它。在参数传递的时候，传递的是它所代表的对象的一个引用。</p>
+        <p><strong>1.添加PRIMARY KEY（主键索引）</strong></p>
+<p> 语法：ALTER TABLE <em>`</em>表名<em>`</em> ADD PRIMARY KEY ( <em>`</em>列名称<em>`</em> )</p>
+<p>mysql&gt;ALTER TABLE <em>`</em>table_name<em>`</em> ADD PRIMARY KEY ( <em>`</em>column<em>`</em> )</p>
+<p><strong>2.添加UNIQUE(唯一索引)</strong></p>
+<p>语法：ALTER TABLE <em>`</em>表名<em>`</em> ADD UNIQUE ( <em>`</em>列名称<em>`</em>)</p>
+<p>mysql&gt;ALTER TABLE <em>`</em>table_name<em>`</em> ADD UNIQUE ( <em>`</em>column<em>`</em>)</p>
+<p><strong>3.添加INDEX(普通索引)</strong></p>
+<p>语法：ALTER TABLE <em>`</em>表名<em>`</em> ADD INDEX index_name ( <em>`</em>列名称<em>`</em> )</p>
+<p>mysql&gt;ALTER TABLE <em>`</em>table_name<em>`</em> ADD INDEX index_name ( <em>`</em>column<em>`</em>)</p>
+<p><strong>4.添加FULLTEXT(全文索引)</strong></p>
+<p>语法：ALTER TABLE <em>`</em>表名<em>`</em> ADD FULLTEXT ( <em>`</em>列名称<em>`</em>)</p>
+<p>mysql&gt;ALTER TABLE <em>`</em>table_name<em>`</em> ADD FULLTEXT ( <em>`</em>column<em>`</em>)</p>
+<p><strong>5.添加多列索引</strong></p>
+<p>语法：ALTER TABLE <em>`</em>表名<em>`</em> ADD INDEX index_name ( <em>`</em>列名称<em>`</em>, <em>`</em>列名称<em>`</em>, <em>`</em>列名称<em>`</em> )</p>
+<p>mysql&gt;ALTER TABLE <em>`</em>table_name<em>`</em> ADD INDEX index_name ( <em>`</em>column1<em>`</em>, <em>`</em>column2<em>`</em>, <em>`</em>column3<em>`</em> )</p>
+<p><strong>想要查看表有几个字段设置了索引</strong></p>
+<p>语法；SHOW INDEX FROM <em>`</em>表名<em>`</em></p>
+<p>mysql&gt;SHOW INDEX FROM <em>`</em>cccinfo<em>`</em></p>
 
       
 
@@ -245,7 +261,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/11/24/Java%E4%B8%ADint%E5%92%8CInteger%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/11/25/Untitled/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -259,18 +275,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/11/24/mybatis%E4%B8%AD-%E5%92%8C-%E7%9A%84%E5%8C%BA%E5%88%AB/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          mybatis中&#34;#{}&#34;和&#34;${}&#34;的区别
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/11/24/get%E5%92%8Cpost%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">get和post的使用场景</div>
+    <a href="/2019/11/24/%E4%B9%90%E8%A7%82%E9%94%81%E4%B8%8E%E6%82%B2%E8%A7%82%E9%94%81/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">乐观锁与悲观锁简述</div>
       <i class="icon-circle-right"></i>
     </a>
   

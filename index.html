@@ -143,6 +143,86 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Untitled" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/25/Untitled/">mysql设置索引</a>
+    </h1>
+  
+
+        
+        <a href="/2019/11/25/Untitled/" class="archive-article-date">
+  	<time datetime="2019-11-25T06:34:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>1.添加PRIMARY KEY（主键索引）</strong></p>
+<p> 语法：ALTER TABLE <em>`</em>表名<em>`</em> ADD PRIMARY KEY ( <em>`</em>列名称<em>`</em> )</p>
+<p>mysql&gt;ALTER TABLE <em>`</em>table_name<em>`</em> ADD PRIMARY KEY ( <em>`</em>column<em>`</em> )</p>
+<p><strong>2.添加UNIQUE(唯一索引)</strong></p>
+<p>语法：ALTER TABLE <em>`</em>表名<em>`</em> ADD UNIQUE ( <em>`</em>列名称<em>`</em>)</p>
+<p>mysql&gt;ALTER TABLE <em>`</em>table_name<em>`</em> ADD UNIQUE ( <em>`</em>column<em>`</em>)</p>
+<p><strong>3.添加INDEX(普通索引)</strong></p>
+<p>语法：ALTER TABLE <em>`</em>表名<em>`</em> ADD INDEX index_name ( <em>`</em>列名称<em>`</em> )</p>
+<p>mysql&gt;ALTER TABLE <em>`</em>table_name<em>`</em> ADD INDEX index_name ( <em>`</em>column<em>`</em>)</p>
+<p><strong>4.添加FULLTEXT(全文索引)</strong></p>
+<p>语法：ALTER TABLE <em>`</em>表名<em>`</em> ADD FULLTEXT ( <em>`</em>列名称<em>`</em>)</p>
+<p>mysql&gt;ALTER TABLE <em>`</em>table_name<em>`</em> ADD FULLTEXT ( <em>`</em>column<em>`</em>)</p>
+<p><strong>5.添加多列索引</strong></p>
+<p>语法：ALTER TABLE <em>`</em>表名<em>`</em> ADD INDEX index_name ( <em>`</em>列名称<em>`</em>, <em>`</em>列名称<em>`</em>, <em>`</em>列名称<em>`</em> )</p>
+<p>mysql&gt;ALTER TABLE <em>`</em>table_name<em>`</em> ADD INDEX index_name ( <em>`</em>column1<em>`</em>, <em>`</em>column2<em>`</em>, <em>`</em>column3<em>`</em> )</p>
+<p><strong>想要查看表有几个字段设置了索引</strong></p>
+<p>语法；SHOW INDEX FROM <em>`</em>表名<em>`</em></p>
+<p>mysql&gt;SHOW INDEX FROM <em>`</em>cccinfo<em>`</em></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/11/25/Untitled/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-乐观锁与悲观锁" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -253,76 +333,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/11/24/mybatis%E4%B8%AD-%E5%92%8C-%E7%9A%84%E5%8C%BA%E5%88%AB/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Untitled" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/24/Untitled/">Java如何实现序列化,有什么意义?</a>
-    </h1>
-  
-
-        
-        <a href="/2019/11/24/Untitled/" class="archive-article-date">
-  	<time datetime="2019-11-24T06:04:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>1.实现序列化:</strong></p>
-<p>1)让类实现Serializable接口,该接口是一个标志性接口,标注该类对象是可被序列</p>
-<p>2)然后使用一个输出流来构造一个对象输出流并通过writeObect(Obejct)方法就可以将实现对象写出</p>
-<p>3)如果需要反序列化,则可以用一个输入流建立对象输入流,然后通过readObeject方法从流中读取对象</p>
-<p><strong>2.作用:</strong></p>
-<p>1)序列化就是一种用来处理对象流的机制,所谓对象流也就是将对象的内容进行流化,可以对流化后的对象进行读写操作,也可以将流化后的对象传输与网络之间;</p>
-<p>2)为了解决对象流读写操作时可能引发的问题(如果不进行序列化,可能会存在数据乱序的问题)</p>
-<p>3）序列化除了能够实现对象的持久化之外，还能够用于对象的深度克隆</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/24/Untitled/">展开全文 >></a>
         </p>
       
 
