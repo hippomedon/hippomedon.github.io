@@ -6,13 +6,16 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>hippomedon</title>
+  <title>mysql设置索引 | hippomedon</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="hippomedon">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;page&#x2F;2&#x2F;index.html">
+  <meta name="description" content="1.添加PRIMARY KEY（主键索引）  语法：ALTER TABLE `表名` ADD PRIMARY KEY ( `列名称` ) mysql&amp;gt;ALTER TABLE `table_name` ADD PRIMARY KEY ( `column` ) 2.添加UNIQUE(唯一索引) 语法：ALTER TABLE `表名` ADD UNIQUE ( `列名称`) mysql&amp;gt;AL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql设置索引">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;27&#x2F;Untitled&#x2F;index.html">
 <meta property="og:site_name" content="hippomedon">
+<meta property="og:description" content="1.添加PRIMARY KEY（主键索引）  语法：ALTER TABLE `表名` ADD PRIMARY KEY ( `列名称` ) mysql&amp;gt;ALTER TABLE `table_name` ADD PRIMARY KEY ( `column` ) 2.添加UNIQUE(唯一索引) 语法：ALTER TABLE `表名` ADD UNIQUE ( `列名称`) mysql&amp;gt;AL">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-11-27T12:11:52.660Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="hippomedon" type="application/atom+xml">
@@ -141,34 +144,67 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-MVC的工作原理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-Untitled" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/24/MVC%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/">MVC的工作原理</a>
+    <h1 class="article-title" itemprop="name">
+      mysql设置索引
     </h1>
   
 
         
-        <a href="/2019/11/24/MVC%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" class="archive-article-date">
-  	<time datetime="2019-11-24T05:25:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-24</time>
+        <a href="/2019/11/27/Untitled/" class="archive-article-date">
+  	<time datetime="2019-11-27T12:09:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-27</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>先解释各个含义：<br>M 代表 Model，即模型，用于封装与业务逻辑有关的代码和数据。例如订单模型、商品模型分别封装订单和商品的数据和业务逻辑。<br>V 代表 View，即视图，用于呈现内容给用户（也就是将程序运行的结果返回给浏览器显示）。例如商品列表页面、后台登录页面。<br>C 代表 Controller，即控制器，用于接收用户输入（通过浏览器发起的请求），然后调用模型（Model）对输入数据进行处理并获得处理结果。最后将结果传递到视图（View），从而让用户能够看到自己操作的结果。例如用户点击删除文章按钮后，控制器调用操作文章的模型，删除掉指定文章，最后通过视图显示成功删除文章的提示信息。</p>
-<p>MVC 模式最大的作用就是分离逻辑和表现。一个业务逻辑在模型中实现，而处理结果在视图中呈现。控制器则充当中间人，根据用户请求调用模型，然后把处理结果传递给视图。</p>
-<p>理解：<br>一句话，C接收用户请求发与M，M处理后返回给V结果（一般来讲还要再通过一次C），<br>用户只能看见V</p>
+        <p><strong>1.添加PRIMARY KEY（主键索引）</strong></p>
+<p> 语法：ALTER TABLE <em>`</em>表名<em>`</em> ADD PRIMARY KEY ( <em>`</em>列名称<em>`</em> )</p>
+<p>mysql&gt;ALTER TABLE <em>`</em>table_name<em>`</em> ADD PRIMARY KEY ( <em>`</em>column<em>`</em> )</p>
+<p><strong>2.添加UNIQUE(唯一索引)</strong></p>
+<p>语法：ALTER TABLE <em>`</em>表名<em>`</em> ADD UNIQUE ( <em>`</em>列名称<em>`</em>)</p>
+<p>mysql&gt;ALTER TABLE <em>`</em>table_name<em>`</em> ADD UNIQUE ( <em>`</em>column<em>`</em>)</p>
+<p><strong>3.添加INDEX(普通索引)</strong></p>
+<p>语法：ALTER TABLE <em>`</em>表名<em>`</em> ADD INDEX index_name ( <em>`</em>列名称<em>`</em> )</p>
+<p>mysql&gt;ALTER TABLE <em>`</em>table_name<em>`</em> ADD INDEX index_name ( <em>`</em>column<em>`</em> )</p>
+<p><strong>4.添加FULLTEXT(全文索引)</strong><br>语法：ALTER TABLE <em>`</em>表名<em>`</em> ADD FULLTEXT (<em>`</em>列名称<em>`</em>)</p>
+<p>mysql&gt;ALTER TABLE <em>`</em>table_name<em>`</em> ADD FULLTEXT ( <em>`</em>column<em>`</em>)</p>
+<p><strong>5.添加多列索引</strong></p>
+<p>语法：ALTER TABLE <em>`</em>表名<em>`</em> ADD INDEX index_name ( <em>`</em>列名称<em>`</em>, <em>`</em>列名称<em>`</em>, <em>`</em>列名称<em>`</em> )</p>
+<p>mysql&gt;ALTER TABLE <em>`</em>table_name<em>`</em> ADD INDEX index_name ( <em>`</em>column1<em>`</em>, <em>`</em>column2<em>`</em>, <em>`</em>column3<em>`</em> )</p>
+<p><strong>想要查看表有几个字段设置了索引</strong></p>
+<p>语法；SHOW INDEX FROM <em>`</em>表名<em>`</em></p>
+<p>mysql&gt;SHOW INDEX FROM <em>`</em>cccinfo<em>`</em></p>
 
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -177,16 +213,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/24/MVC%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/11/27/Untitled/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2019/11/27/%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%9D%99%E6%80%81ip%E8%AE%BE%E7%BD%AE/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">虚拟机静态ip设置</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -206,611 +301,14 @@
 
 
 
-
-  
-    <article id="post-ArrayList-LinkedList-vector的区别" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/24/ArrayList-LinkedList-vector%E7%9A%84%E5%8C%BA%E5%88%AB/">ArrayList,LinkedList,vector的区别</a>
-    </h1>
-  
-
-        
-        <a href="/2019/11/24/ArrayList-LinkedList-vector%E7%9A%84%E5%8C%BA%E5%88%AB/" class="archive-article-date">
-  	<time datetime="2019-11-24T05:21:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1，Vector、ArrayList都是以类似数组的形式存储在内存中，LinkedList则以链表的形式进行存储。</p>
-<p>2、List中的元素有序、允许有重复的元素，Set中的元素无序、不允许有重复元素。</p>
-<p>3、Vector线程同步，ArrayList、LinkedList线程不同步。</p>
-<p>4、LinkedList适合指定位置插入、删除操作，不适合查找；ArrayList、Vector适合查找，不适合指定位置的插入、删除操作。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/24/ArrayList-LinkedList-vector%E7%9A%84%E5%8C%BA%E5%88%AB/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Cookie和Session的区别" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/24/Cookie%E5%92%8CSession%E7%9A%84%E5%8C%BA%E5%88%AB/">Cookie和Session的区别</a>
-    </h1>
-  
-
-        
-        <a href="/2019/11/24/Cookie%E5%92%8CSession%E7%9A%84%E5%8C%BA%E5%88%AB/" class="archive-article-date">
-  	<time datetime="2019-11-24T05:02:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>1、存储位置不同</strong></p>
-<p>cookie的数据信息存放在客户端浏览器上。<br>session的数据信息存放在服务器上。</p>
-<p><strong>2、存储容量不同</strong></p>
-<p>单个cookie保存的数据&lt;=4KB，一个站点最多保存20个Cookie。<br>对于session来说并没有上限，但出于对服务器端的性能考虑，session内不要存放过多的东西，并且设置session删除机制。</p>
-<p><strong>3、存储方式不同</strong></p>
-<p>cookie中只能保管ASCII字符串，并需要通过编码方式存储为Unicode字符或者二进制数据。<br>session中能够存储任何类型的数据，包括且不限于string，integer，list，map等。</p>
-<p><strong>4、隐私策略不同</strong></p>
-<p>cookie对客户端是可见的，别有用心的人可以分析存放在本地的cookie并进行cookie欺骗，所以它是不安全的。<br>session存储在服务器上，对客户端是透明对，不存在敏感信息泄漏的风险。</p>
-<p><strong>5、有效期上不同</strong></p>
-<p>开发可以通过设置cookie的属性，达到使cookie长期有效的效果。<br>session依赖于名为JSESSIONID的cookie，而cookie JSESSIONID的过期时间默认为-1，只需关闭窗口该session就会失效，因而session不能达到长期有效的效果。</p>
-<p><strong>6、服务器压力不同</strong></p>
-<p>cookie保管在客户端，不占用服务器资源。对于并发用户十分多的网站，cookie是很好的选择。<br>session是保管在服务器端的，每个用户都会产生一个session。假如并发访问的用户十分多，会产生十分多的session，耗费大量的内存。</p>
-<p><strong>7、浏览器支持不同</strong></p>
-<p>假如客户端浏览器不支持cookie：</p>
-<p>cookie是需要客户端浏览器支持的，假如客户端禁用了cookie，或者不支持cookie，则会话跟踪会失效。关于WAP上的应用，常规的cookie就派不上用场了。<br>运用session需要使用URL地址重写的方式。一切用到session程序的URL都要进行URL地址重写，否则session会话跟踪还会失效。</p>
-<p>假如客户端支持cookie：</p>
-<p>cookie既能够设为本浏览器窗口以及子窗口内有效，也能够设为一切窗口内有效。<br>session只能在本窗口以及子窗口内有效。</p>
-<p><strong>8、跨域支持上不同</strong></p>
-<p>cookie支持跨域名访问。<br>session不支持跨域名访问。</p>
-<p>转载：<a href="https://www.jianshu.com/p/2f7031a69f43" target="_blank" rel="noopener">https://www.jianshu.com/p/2f7031a69f43</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/24/Cookie%E5%92%8CSession%E7%9A%84%E5%8C%BA%E5%88%AB/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-缓存" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/18/%E7%BC%93%E5%AD%98/">一级缓存和二级缓存</a>
-    </h1>
-  
-
-        
-        <a href="/2019/11/18/%E7%BC%93%E5%AD%98/" class="archive-article-date">
-  	<time datetime="2019-11-18T11:52:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>二级缓存是什么意思</strong></p>
-<p>二级缓存就是一级缓存的缓冲器：一级缓存制造成本很高因此它的容量有限，二级缓存的作用就是存储</p>
-<p>那些CPU处理时需要用到、一级缓存又无法存储的数据。同样道理，三级缓存和内存可以看作是二级缓</p>
-<p>存的缓冲器，它们的容量递增，但单位制造成本却递减。需要注意的是，无论是二级缓存、三级缓存还</p>
-<p>是内存都不能存储处理器操作的原始指令，这些指令只能存储在CPU的一级指令缓存中，而余下的二级</p>
-<p>缓存、三级缓存和内存仅用于存储CPU所需数据。</p>
-<p><strong>一级缓存和二级缓存的区别：</strong></p>
-<p>主要的不同是它们的作用范围不同。</p>
-<p>一级缓存是session级别的。</p>
-<p>也就是只有在同一个session里缓存才起作用，当这个session关闭后这个缓存就不存在了。</p>
-<p>而二级缓存是sessionFactory级别的。</p>
-<p>其缓存对同一个sessionFactory生产出来的session都有效，二级缓存我们通常使用其他的一些开源组<br>件，比如hibernate经常使用的就是ECache，这个缓存在整个应用服务器中都会有效的。</p>
-<p>首先要明白缓存是干什么的，缓存就是要将一些经常使用的数据缓存到内存或者各种储存介质中，当<br>再次使用时可以不用去数据库中查询，减少与数据库的交互，提高性能。</p>
-<p>再说明一级与二级缓存的作用：一级缓存是Session级别的，也就是说在一个事务中才会启作用。比如<br>在一个事务中同时查询同一个对象，则不会两次去数据库中查询。</p>
-<p>而二级缓存是sessionFactory级别的，不同的事务之间是可以共享的，有些权限，当用户首次登陆后<br>便将关联的权限放到二级缓存中，这样每次需要权限时就无需再查询数据库了。</p>
-<p>最后再说明为什么这样设计：一般情况下，我们查询的数据一般是实时的，使用二级缓存肯定不行，<br>使用一级缓存既利用了缓存又不会影响实时。</p>
-<p>使用二级缓存是为了存储一些比较稳定的数据，如权限，只有在用户修改了权限且重新登录时才能生效<br>cpu中的一级缓存和二级缓存和三级缓存。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/18/%E7%BC%93%E5%AD%98/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Oracle与MySQL优缺点、使用区别）-MySQL的特点" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/18/Oracle%E4%B8%8EMySQL%E4%BC%98%E7%BC%BA%E7%82%B9%E3%80%81%E4%BD%BF%E7%94%A8%E5%8C%BA%E5%88%AB%EF%BC%89-MySQL%E7%9A%84%E7%89%B9%E7%82%B9/">Oracle与MySQL优缺点、使用区别 </a>
-    </h1>
-  
-
-        
-        <a href="/2019/11/18/Oracle%E4%B8%8EMySQL%E4%BC%98%E7%BC%BA%E7%82%B9%E3%80%81%E4%BD%BF%E7%94%A8%E5%8C%BA%E5%88%AB%EF%BC%89-MySQL%E7%9A%84%E7%89%B9%E7%82%B9/" class="archive-article-date">
-  	<time datetime="2019-11-18T11:36:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>MySQL的特点</strong></p>
-<p>1、性能卓越，服务稳定，很少出现异常宕机；</p>
-<p>2、开放源代码无版本制约，自主性及使用成本低；</p>
-<p>3、历史悠久，社区和用户非常活跃，遇到问题及时寻求帮助；</p>
-<p>4、软件体积小，安装使用简单且易于维护，维护成本低；品牌口碑效应；</p>
-<p>5、支持多种OS，提供多种API接口，支持多种开发语言，对流行的PHP，Java很好的支持</p>
-<p><strong>MySQL的缺点</strong></p>
-<p>1、MySQL最大的缺点是其安全系统，主要是复杂而非标准，另外只有到调用mysqladmin来重读用户权限才会发生改变；</p>
-<p>2、MySQL的另一个主要的途径之一是缺乏标准的RI（Referential  Integrity-RI）机制，RI限制的缺乏（在给定字段域上的一种固定的范围限制）可以通过大量的数据类型来补偿；</p>
-<p>3、MySQL不支持热备份；</p>
-<p><strong>Oracle的特点</strong></p>
-<p>1、兼容性：Oracle产品采用标准SQL，并经过美国u构架标准技术所（NIST）测试，与IBM  SQL/DS、DB2、INGRES、IDMS/R等兼容。</p>
-<p>2、可移植性：Oracle的产品可运行于很宽范围的硬件与操作系统平台上。可以安装在多种 大、中、小型机上，可在多种操作系统下工作。</p>
-<p>3、可联结性：Oracle能与多种通讯网络相连，支持各种协议。</p>
-<p>4、高生产率：Oracle产品提供了多种开发工具，能极大地方使用户进行进一步的开发。</p>
-<p>5、开放性：Oracle良好的兼容性、可移植性、可连接性和高生产率使Oracle   RDBMS具有良好的开放性。</p>
-<p><strong>Oracle的缺点</strong></p>
-<p>1、对硬件要求很高；</p>
-<p>2、价格比较昂贵；</p>
-<p>3、管理维护麻烦一些；</p>
-<p>4、操作比较复杂，需要技术含量高；</p>
-<p><strong>MySQL与Oracle的应用区别</strong></p>
-<p>1、主键的使用：</p>
-<p>MySQL：一般使用自动增长类型，在创建表的时候只要指定表的主键为auto increment,插入记录时就不需要再为主键添加记录了，主键会自动增长；</p>
-<p>Oracle:没有自动增长，主键一般使用序列，插入记录时将序列号的下一值付给该字段即可，只是ORM框架只是需要native主键生成策略即可。</p>
-<p>2、长字符串的处理</p>
-<p>长字符串的处理ORACLE也有它特殊的地方。INSERT和UPDATE时最大可操作的字符串长度小于等于4000个单字符，</p>
-<p>如果要插入更长的字符串，请考虑字段用CLOB类型，方法借用ORACLE里自带的DBMS_LOB程序包。插入修改记录前一定要做进行非空和长度判断，不能为空的字段值和超出长度值都应该提出警告，返回上次操作。</p>
-<p>3、模糊查询的比较</p>
-<p>MySQL:用字段名like%’字符串%’</p>
-<p>Oracle：也可以用字段名like%’字符串%’但这种方法不能使用索引，速度不快，用字符串比较函数</p>
-<p>isnert(字段名，‘字符串’)&gt;0会得到更精确的查找结果</p>
-<p>4、空字符串的比较：</p>
-<p>MySQL的非空字段也有空的内容，Oracle里定义了非空字段就不容许有空的内容。按MySQL的not null来定义Oracle表结构。</p>
-<p>导数据的时候就会产生错误。因此导数据时对空字符进行判断，如果为Null或空字符，需要把它改成一个空格的字符串。</p>
-<p>5、单引号的处理</p>
-<p>MySQL里可以用双引号包起字符串，Oracle里只可以用单引号包起字符串，在插入和修改字符串前必须做单引的替换；</p>
-<p>把所有出现的一个单引号替换成两个单引号</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/18/Oracle%E4%B8%8EMySQL%E4%BC%98%E7%BC%BA%E7%82%B9%E3%80%81%E4%BD%BF%E7%94%A8%E5%8C%BA%E5%88%AB%EF%BC%89-MySQL%E7%9A%84%E7%89%B9%E7%82%B9/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Spring中BasicDataSource" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/14/Spring%E4%B8%ADBasicDataSource/">Spring中BasicDataSource相关重要属性</a>
-    </h1>
-  
-
-        
-        <a href="/2019/11/14/Spring%E4%B8%ADBasicDataSource/" class="archive-article-date">
-  	<time datetime="2019-11-14T05:57:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;dataSource&quot; class=&quot;org.apache.commons.dbcp.BasicDataSource&quot;&gt;</span><br><span class="line">	&lt;property name=&quot;driverClassName&quot; value=&quot;$&#123;jabc.driver&#125;&quot;&gt;&lt;/property&gt;</span><br><span class="line">	&lt;property name=&quot;url&quot; value=&quot;$&#123;jabc.url&#125;&quot;&gt;&lt;/property&gt;</span><br><span class="line">	&lt;property name=&quot;username&quot; value=&quot;$&#123;jabc.username&#125;&quot;&gt;&lt;/property&gt;</span><br><span class="line">	&lt;property name=&quot;password&quot; value=&quot;$&#123;jabc.password&#125;&quot;&gt;&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">	&lt;!-- 连接池初始化多少个连接 --&gt;</span><br><span class="line">	&lt;property name=&quot;initialSize&quot; value=&quot;100&quot;&gt;&lt;/property&gt;</span><br><span class="line">	&lt;!-- 最大允许并发数 --&gt;</span><br><span class="line">	&lt;property name=&quot;maxActive&quot; value=&quot;20&quot;&gt;&lt;/property&gt;</span><br><span class="line">	&lt;!-- 最大允许空闲连接 --&gt;</span><br><span class="line">	&lt;property name=&quot;maxIdle&quot; value=&quot;20&quot;&gt;&lt;/property&gt;</span><br><span class="line">	&lt;!-- 最小允许空闲连接 --&gt;</span><br><span class="line">	&lt;property name=&quot;minIdle&quot; value=&quot;15&quot;&gt;&lt;/property&gt;</span><br><span class="line">	&lt;!-- 最大允许等待时间 --&gt;</span><br><span class="line">	&lt;property name=&quot;maxWait&quot; value=&quot;60000&quot;&gt;&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">	&lt;!-- 是否开启SQL心跳 --&gt;</span><br><span class="line">	&lt;property name=&quot;testWhileIdle&quot; value=&quot;true&quot;&gt;&lt;/property&gt;</span><br><span class="line">	&lt;!-- 心跳间隔时间 --&gt;</span><br><span class="line">	&lt;property name=&quot;timeBetweenEvictionRunsMillis&quot; value=&quot;60000&quot;&gt;&lt;/property&gt;</span><br><span class="line">	&lt;!-- 检测SQL语法 --&gt;</span><br><span class="line">	&lt;property name=&quot;validationQuery&quot; value=&quot;select 1&quot;&gt;&lt;/property&gt;</span><br><span class="line">	&lt;!-- 每次从连接池中获取连接的时候是否需要验证有效(即检测SQL语法) --&gt;</span><br><span class="line">	&lt;property name=&quot;testOnBorrow&quot; value=&quot;false&quot;&gt;&lt;/property&gt;</span><br><span class="line">	&lt;!-- 每次归还连接到连接池的时候是否需要验证有效(即检测SQL语法) --&gt;</span><br><span class="line">	&lt;property name=&quot;testOnReturn&quot; value=&quot;false&quot;&gt;&lt;/property&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/14/Spring%E4%B8%ADBasicDataSource/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Mybitas一对多查询中list只有一条数据（size-1）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/07/Mybitas%E4%B8%80%E5%AF%B9%E5%A4%9A%E6%9F%A5%E8%AF%A2%E4%B8%ADlist%E5%8F%AA%E6%9C%89%E4%B8%80%E6%9D%A1%E6%95%B0%E6%8D%AE%EF%BC%88size-1%EF%BC%89/">Mybitas一对多查询中list只有一条数据（size=1）</a>
-    </h1>
-  
-
-        
-        <a href="/2019/11/07/Mybitas%E4%B8%80%E5%AF%B9%E5%A4%9A%E6%9F%A5%E8%AF%A2%E4%B8%ADlist%E5%8F%AA%E6%9C%89%E4%B8%80%E6%9D%A1%E6%95%B0%E6%8D%AE%EF%BC%88size-1%EF%BC%89/" class="archive-article-date">
-  	<time datetime="2019-11-07T02:28:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>问题描述:定义好resultMap之后，查询结果中的list，其size都是1。</p>
-<p>原因:<br>1.两张链表的主键id同名导致<br>2.主表未查询主键id。</p>
-<p>解决:<br>1.更改两表主键id致不同名。<br>2.sql语句中查询出主键id。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/07/Mybitas%E4%B8%80%E5%AF%B9%E5%A4%9A%E6%9F%A5%E8%AF%A2%E4%B8%ADlist%E5%8F%AA%E6%9C%89%E4%B8%80%E6%9D%A1%E6%95%B0%E6%8D%AE%EF%BC%88size-1%EF%BC%89/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Markdown常用语法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/31/Markdown%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95/">Markdown常用语法</a>
-    </h1>
-  
-
-        
-        <a href="/2019/10/31/Markdown%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95/" class="archive-article-date">
-  	<time datetime="2019-10-31T02:35:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-31</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ul>
-<li>标题：利用#符号可以设定标题，1个表示一级标题，2个表示二级标题，如此类推；</li>
-<li>引用：利用&gt;可以创建引用块；</li>
-<li>代码：利用左上角<strong>`</strong>将待显示内容包起来即可；</li>
-<li>代码块：利用3个<strong>`</strong>描述即可创建代码块；</li>
-<li>斜体：利用ctrl+I即可实现斜体；</li>
-<li>加粗：利用ctrl+B即可实现粗体；</li>
-<li>线状：水平分割线可以用—或者***实现，下划线可以用ctrl+U实现，删除线可利用~~包裹实现；</li>
-<li>列表：无序列表用星号(*)、减号(-)和加号(+)，有序列表用数字加上(.)。</li>
-<li>使用图片</li>
-</ul>
-<p>1.简单使用</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 注：使用时去掉括号“()”前面的空格</span><br><span class="line">![alt 属性文本]  (图片地址)</span><br><span class="line">![alt 属性文本]  (图片地址 &quot;可选标题&quot;)</span><br></pre></td></tr></table></figure>
-<p>2.使用img标签(可自定义宽高)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&quot;图片链接&quot; width=&quot;&quot; height=&quot;&quot;&gt;</span><br></pre></td></tr></table></figure>
-<p>转载<a href="https://www.jianshu.com/p/a3786cc10a99" target="_blank" rel="noopener">https://www.jianshu.com/p/a3786cc10a99</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/31/Markdown%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-struts2启动报错-Class-com-opensymphony-xwork2-spring-SpringObjectFactory-File-SpringObjectFactory-java-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/31/struts2%E5%90%AF%E5%8A%A8%E6%8A%A5%E9%94%99-Class-com-opensymphony-xwork2-spring-SpringObjectFactory-File-SpringObjectFactory-java-1/">struts2启动报错-Class-com-opensymphony-xwork2-spring-SpringObjectFactory-File-SpringObjectFactory-java-1</a>
-    </h1>
-  
-
-        
-        <a href="/2019/10/31/struts2%E5%90%AF%E5%8A%A8%E6%8A%A5%E9%94%99-Class-com-opensymphony-xwork2-spring-SpringObjectFactory-File-SpringObjectFactory-java-1/" class="archive-article-date">
-  	<time datetime="2019-10-31T02:04:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-31</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>严重: Exception starting filter struts2</p>
-<p>Class: com.opensymphony.xwork2.spring.SpringObjectFactory<br>File: SpringObjectFactory.java<br>Method: getClassInstance<br>Line: 209 - com/opensymphony/xwork2/spring/SpringObjectFactory.java:209:-1<br>Caused by: java.lang.NullPointerException at com.opensymphony.xwork2.spring.SpringObjectFactory.getClassInstance(SpringObjectFactory.java:209)</p>
-<p>原因两个：<br>1.lib中多导入包的大原因：去掉struts2-spring-plugin-2.1.8包即可，因为没有用到spring。<br>2.还有的原因是用spring了，却没加监听器，在web.xml里面加上</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;context-param&gt;</span><br><span class="line">      &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;</span><br><span class="line">      &lt;param-value&gt;classpath:applicationContext*.xml&lt;/param-value&gt;</span><br><span class="line">&lt;/context-param&gt;</span><br><span class="line">&lt;listener&gt;</span><br><span class="line">    &lt;listener-class&gt;org.springframework.web.context.ContextLoaderListener&lt;/listener-class&gt;</span><br><span class="line">&lt;/listener&gt;</span><br></pre></td></tr></table></figure>
-<p>转载<a href="https://blog.csdn.net/u010268227/article/details/50387101" target="_blank" rel="noopener">https://blog.csdn.net/u010268227/article/details/50387101</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/31/struts2%E5%90%AF%E5%8A%A8%E6%8A%A5%E9%94%99-Class-com-opensymphony-xwork2-spring-SpringObjectFactory-File-SpringObjectFactory-java-1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
-    </nav>
+  
+
+  
+
+  
+
   
 
 
@@ -833,8 +331,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
